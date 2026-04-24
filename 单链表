@@ -1,3 +1,4 @@
+'''
 #include <cstdio>
 #include<cstdlib>
 
@@ -184,3 +185,4 @@ int main()
 		printf("删除位置不合法");
 	}
 }
+'''
