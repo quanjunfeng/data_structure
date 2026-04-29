@@ -1,0 +1,64 @@
+#include<iostream> 
+#include<cstdlib>
+using namespace std;
+
+
+
+typedef struct{
+	int *base;
+	int *top;
+	int stacksize;
+}SqStack;
+
+//³õÊ¼»¯Õ» 
+bool InitStack(SqStack &S)
+{
+	S.base = (int*)malloc(sizeof(int)*100);
+	S.top = S.base;
+	S.stacksize = 100;
+	return true;
+}
+
+//È¡Õ»¶¥ÔªËØ 
+bool GetTop(SqStack S, int &e)
+{
+	if(S.top == S.base) return false;
+	e = *(S.top-1);
+	return true;
+}
+
+//½øÕ»²Ù×÷
+bool Push(SqStack &S, int e) 
+{
+	if(S.top-S.base==S.stacksize)
+	{
+		int* newbase = (int*)realloc(S.base, sizeof(int)*10);
+		S.base = newbase;
+		S.top = S.base+S.stacksize;
+		S.stacksize += 10;
+	}
+	*(S.top++) = e;
+	return true;
+	
+}
+
+//³öÕ»²Ù×÷
+bool Pop(SqStack &S, int &e)
+{
+	if(S.top==S.base) return false;
+	e = *(--S.top);
+	return true;
+}
+
+int main()
+{
+	SqStack* S  = (SqStack*)malloc(sizeof(SqStack));
+	InitStack(*S);
+	for(int i=1;i<=5;i++) Push(*S, i);
+	for(int i=1;i<=5;i++)
+	{
+		int temp;
+		Pop(*S, temp);
+		cout << temp << endl;
+	}
+}
